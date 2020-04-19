@@ -24,7 +24,7 @@ class FiveDaysWeather extends Component {
 		}
 	  }
     fetchFiveDaysArray = () =>{
-        var url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+
+        var url = "https://dataservice.accuweather.com/forecasts/v1/daily/5day/"+
         + this.props.currentSelectedCityKey+"?apikey="+this.props.apiKey+"&metric=true"
         var req = new Request(url);
         fetch(req)

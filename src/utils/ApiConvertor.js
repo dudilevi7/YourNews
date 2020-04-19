@@ -1,6 +1,6 @@
 //const apiKey = "6OwPQ2hmTrq3buEVnQrF2UddMVhyYun2";
 const apiKey = "V5FfcZrrJ0SQGbZSnLx3JSJZ0AuMWfng";
-const baseURL = "http://dataservice.accuweather.com/";
+const baseURL = "https://dataservice.accuweather.com/";
 const baseForecast = "forecasts/v1/daily/5day/";
 const baseCurrentConditions = "currentconditions/v1/"
 const baseAutoComplete = "locations/v1/cities/autocomplete"

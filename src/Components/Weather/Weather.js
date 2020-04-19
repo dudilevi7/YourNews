@@ -46,7 +46,7 @@ class Weather extends Component {
 				  else {
 				  	let lat = position.coords.latitude;
 					let lng = position.coords.longitude;
-					var url = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey="
+					var url = "https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey="
 					+this.state.apiKey+"&q="+lat+","+lng;
 				    var req = new Request(url);
 				    fetch(req)
@@ -64,7 +64,7 @@ class Weather extends Component {
 		})
 	}
 	fetchCurrentTemperature = () => {
-		var url = "http://dataservice.accuweather.com/currentconditions/v1/"+
+		var url = "https://dataservice.accuweather.com/currentconditions/v1/"+
 		this.state.currentSelectedCityKey+"?apikey="+this.state.apiKey+"&metric=true";
 		var req = new Request(url);
 		fetch(req)
