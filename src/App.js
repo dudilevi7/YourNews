@@ -8,54 +8,74 @@ import Register from './Components/Register/Register';
 import MyNews from './Components/MyNews/MyNews';
 import Weather from './Components/Weather/Weather'
 import Home from './Components/Home/Home';
+
+import { connect } from 'react-redux';
+import { setIsSignedIn, setUserName, setCategory } from './actions';
+
+const mapStateToProps = state => { //takes the state from localStorage of the persist
+  return {
+    isSignedIn : state.localStorage.isSignedIn,
+    username : state.localStorage.username ,
+    category : state.localStorage.category
+  }
+}
+const mapDispatchToProps = (dispatch) => { //push the new state with dispatch(action(filed))
+  return {
+    onConnection :(event,username,category) => {
+     dispatch(setIsSignedIn(event))
+     dispatch(setUserName(username))
+     dispatch(setCategory(category))
+    }
+  }
+}
+
 class App extends Component {
   constructor () {
     super();
     this.state = {
-      page : 'Login',
-      isSignedIn : false,
       user : {
         username : '',
         category : ''
       }
     }
   }
- 
+
+  
   onLogOutClick = ()=>{
-    // var url = new URL("http://localhost:3000/logout");
-    //     fetch(url,{
-    //       credentials: 'include'
-    //     })
-    //     .then(response => console.log(response))
+   // this.props.onConnection(false);
   }
   onLoginStart = ()=> {
-    this.setState({isSignedIn:false})
+    this.props.onConnection(false,"","");
   }
   onRegisterComplete = (data)=> {
-    this.setState(Object.assign(this.state.user, {username : data.username}))
-    this.setState(Object.assign(this.state.user, {category : data.category}))
-    this.setState({isSignedIn : true});
+    // this.setState(Object.assign(this.state.user, {username : data.username}))
+    //this.setState(Object.assign(this.state.user, {category : data.category}))
+    this.props.onConnection(true,data.username,data.category);
   }
   onLoginComplete = (data)=> {
-      this.setState(Object.assign(this.state.user, {username : data.username}))
-      this.setState(Object.assign(this.state.user, {category : data.category}))
-      this.setState({isSignedIn : true});
+      // this.setState(Object.assign(this.state.user, {username : data.username}))
+     // this.setState(Object.assign(this.state.user, {category : data.category}))
+      this.props.onConnection(true,data.username,data.category);
   }
     render(){
     return (
       <BrowserRouter history = {Router} basename={process.env.PUBLIC_URL}>
+        
           <div className="App">
-            <Navigation onLogOutClick = {this.onLogOutClick} isSignedIn = {this.state.isSignedIn}/> 
+            <Navigation onLogOutClick = {this.onLogOutClick} user = {this.props}/> 
             <Switch>
-              <Route exact path = '/' render = {(props)=> <Home isSignedIn = {this.state.isSignedIn} {...props}/>}/>
+              <Route exact path = '/' render = {(props)=> <Home user = {this.props} {...props}/>}/>
+
               <Route exact path = '/Login' render = {(props)=>  <Login onLoginStart = {this.onLoginStart} onLoginComplete = {this.onLoginComplete} 
-              isSignedIn = {this.state.isSignedIn} {...props}/>}/>
+              user = {this.props} {...props}/>}/>
+
               <Route exact path = '/Register' render = {(props)=>  <Register onRegisterComplete = {this.onRegisterComplete} 
-              isSignedIn = {this.state.isSignedIn} {...props}/>}/>
-              <Route path = '/MyNews' render = {(props)=>  <MyNews isSignedIn = {this.state.isSignedIn} 
-              userName = {this.state.user.username} category = {this.state.user.category} {...props}/>}/>
-              <Route exact path = '/Weather' render = {(props)=>  <Weather isSignedIn = {this.state.isSignedIn} 
-              userName = {this.state.user.username} {...props}/>}/>
+              user = {this.props} {...props}/>}/>
+
+              <Route path = '/MyNews' render = {(props)=>  <MyNews 
+              user = {this.props} {...props}/>}/>
+              
+              <Route exact path = '/Weather' render = {(props)=>  <Weather user = {this.props}{...props}/>}/>
             </Switch>
           </div>
       </BrowserRouter>
@@ -63,4 +83,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps,mapDispatchToProps)(App);

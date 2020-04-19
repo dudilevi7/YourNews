@@ -9,6 +9,9 @@ class Home extends Component {
 	// }
 	componentDidMount(){
 			setTimeout(()=> {
+				if (this.props.user.isSignedIn)
+					this.props.history.push('/MyNews')
+				else
 				this.props.history.push('/Login')
 			},2000)
 	}

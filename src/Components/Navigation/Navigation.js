@@ -1,7 +1,8 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav'
 import {Link} from 'react-router-dom';
-const Navigation = ({onLogOutClick,isSignedIn}) =>{
+const Navigation = ({user}) =>{
+	
 	let loginLink = <Nav.Item style = {{margin : 10}}>
 						<Link to = '/Login' style = {{fontSize : '1.2em',textDecoration:'none'}}>
 						Login
@@ -19,7 +20,7 @@ const Navigation = ({onLogOutClick,isSignedIn}) =>{
 			            </Link>
 			         </Nav.Item> 
 	let weatherLink = ""
-	if (isSignedIn) {
+	if (user.isSignedIn) {
 		loginLink = 
 			<Nav.Item style = {{margin : 10}}>
 							<Link to = '/Login' style = {{fontSize : '1.2em',textDecoration:'none'}}>

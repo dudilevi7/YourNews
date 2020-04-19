@@ -5,6 +5,7 @@ import Toast from 'react-bootstrap/Toast'
 import Nav from 'react-bootstrap/Nav'
 import OtherNews from './OtherNews';
 import nonImage from './nonImage.png'
+import './MyNews.css';
 
 class MyNews extends Component {
 	_isMounted = false;
@@ -20,7 +21,7 @@ class MyNews extends Component {
 	}
 	componentDidMount() {
 		this._isMounted = true;
-		let category = this.props.category
+		let category = this.props.user.category;
 		var url = this.state.url + category;
 		var req = new Request(url);
 		fetch(req).then(response => response.json())
@@ -31,7 +32,7 @@ class MyNews extends Component {
 		});	
 	}
 	componentWillUnmount() {
-    this._isMounted = false;
+   		 this._isMounted = false;
   	}
 	onCloseToast = () => {
 		this.setState({toastDisplay : false});
@@ -47,7 +48,7 @@ class MyNews extends Component {
 		});
 	}
 	render() {
-		if (!this.props.isSignedIn) {
+		if (!this.props.user.isSignedIn) {
 			this.props.history.push('/');
 			}
 		if (!this.state.data.articles) return <Spinner animation="border" />;
@@ -64,7 +65,7 @@ class MyNews extends Component {
 				return (
 					  <Carousel.Item onClick ={()=>window.open(news[i].url, '_blank').focus()} key = {i}>
 					    <img
-					      className="d-block w-100"
+					      id = "mainImg"
 					      src={newsImage}
 					      alt="slide"
 					    />
@@ -78,27 +79,21 @@ class MyNews extends Component {
 			});
 		//console.log(newsArray)
 		return (
-			<div className="row align-items-center justify-content-center">
-		
-				<Toast show = {this.state.toastDisplay} onClose = {this.onCloseToast} style={{
-				          position: "fixed",
-				          top: "10px",
-				          right: "3px",
-				          zIndex: 9999
-				        }}>
+			<div id = 'myNewsContainer'>
+				<Toast id="toastDisplay" show = {this.state.toastDisplay} onClose = {this.onCloseToast}>
 	  					<Toast.Header>
 						    <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
 						    <strong className="mr-auto">YourNews</strong>
 						    <small>now</small>
 				  		</Toast.Header>
-			  		<Toast.Body>Hello, {this.props.userName} ! your'e logged in.</Toast.Body>
+			  		<Toast.Body>Hello, {this.props.user.username} ! your'e logged in.</Toast.Body>
 				</Toast>
-					<Carousel style = {{height:'50%',width:'50%', display : 'flex', marginBottom:'20px' ,marginLeft:'200px', marginRight:'200px' , cursor: 'pointer'}}>
+					<Carousel id = "mainArticles" >
 						  {newsArray}
 					</Carousel>
 
-				<div style = {{margin :'20px'}}>
-					<Nav variant="pills" defaultActiveKey= {this.props.category}
+				<div id = "navContainer"style = {{margin :'20px'}}>
+					<Nav variant="pills" defaultActiveKey= {this.props.user.category}
 						onSelect={this.onSelectCategory}>
 						  <Nav.Item>
 						    <Nav.Link eventKey="general">General</Nav.Link>
@@ -115,7 +110,6 @@ class MyNews extends Component {
 						    <Nav.Item>
 						    <Nav.Link eventKey="business">Business</Nav.Link>
 						  </Nav.Item>
-					
 					</Nav>
 				</div>
 				<OtherNews news = {this.state.data.articles}/>

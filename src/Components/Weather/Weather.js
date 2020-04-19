@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
+import './Weather.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
+import FiveDaysWeather from './FiveDaysWeather';
+import SelectCities from '../SelectCities/SelectCities';
 var geolocation = require('geolocation');
 
 class Weather extends Component {
@@ -14,13 +17,21 @@ class Weather extends Component {
 			city : '',
 			country: '',
 			temp : '',
-			currTime : ''
+			currTime : '',
+			apiKey : '6OwPQ2hmTrq3buEVnQrF2UddMVhyYun2',
+			currentSelectedCityKey : '',
+			iconURL : ''
 		}
 	}
 	componentDidMount(){
 		this._isMounted = true;
 		this.onRefreshClick();
 	}
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.currentSelectedCityKey !== prevState.currentSelectedCityKey) {
+		  this.fetchCurrentTemperature();
+		}
+	  }
 	componentWillUnmount(){
 		this._isMounted = false;
 	}
@@ -35,43 +46,75 @@ class Weather extends Component {
 				  else {
 				  	let lat = position.coords.latitude;
 					let lng = position.coords.longitude;
-					var weatherApi = "5a5f8d8e37a6bd6f84d80adc804e0da0";
-				    var url = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lng+"&units=metric&appid="+weatherApi;
+					var url = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey="
+					+this.state.apiKey+"&q="+lat+","+lng;
 				    var req = new Request(url);
 				    fetch(req)
 				    .then(response => response.json())
 				    .then(data=> {
 				    	if (this._isMounted){
-				     		this.setState({city: data.name});
-				     		this.setState({country : data.sys.country});
-				     		this.setState({temp : data.main.temp + "°"});
-				     		this.setState({description : data.weather[0].main})
+							this.setState({currentSelectedCityKey : data.Key})
+							this.fetchCurrentTemperature();
+				     		this.setState({city: data.LocalizedName});
+				     		this.setState({country : data.Country.LocalizedName});
+				     		// this.setState({temp : data.main.temp + "°"});
 				     		}
 				    	});
 				  	}
-				})
+		})
+	}
+	fetchCurrentTemperature = () => {
+		var url = "http://dataservice.accuweather.com/currentconditions/v1/"+
+		this.state.currentSelectedCityKey+"?apikey="+this.state.apiKey+"&metric=true";
+		var req = new Request(url);
+		fetch(req)
+		.then(response => response.json())
+		.then(data => {
+			;
+			this.setState({temp : data[0].Temperature.Metric.Value + "°"});
+			this.setState({description : data[0].WeatherText})
+			let icon = data[0].WeatherIcon;
+			if (icon<10) icon = "0"+ icon;
+			this.setState({iconURL : "https://developer.accuweather.com/sites/default/files/"+icon+"-s.png"})
+		})
+	}
+	onSelectCity = (city) => {
+		this.setState({
+			currentSelectedCityKey : city.key,
+			city : city.value,
+			country : city.country
+		});
+		
 	}
     render() {
-    	if (!this.props.isSignedIn) {
+    	if (!this.props.user.isSignedIn) {
 			this.props.history.push('/Login');
 			}
-		if (!this.state.currTime) return <Spinner animation="border" />;
+		if (!this.state.currTime || !this.state.currentSelectedCityKey) return <Spinner animation="border" />;
 			return (
-				<div className="row align-items-center justify-content-center">
-					<Card style = {{width : '35%'}}>
-					  <Card.Header>
-					  	<h1 style = {{fontSize:75}}> {this.state.temp} </h1>
-					  	<Card.Text>{this.state.description}</Card.Text>
-					  </Card.Header>
-					  <Card.Body>
-					    <Card.Title>{this.state.city + ' , '+this.state.country}</Card.Title>
-					    <Card.Text>
-					      {this.state.todayDate + ' | '+this.state.currTime}
-					    </Card.Text>
-					    <Button variant="warning" onClick = {this.onRefreshClick}>Refresh</Button>
-					  </Card.Body>
-					</Card>
-				</div>
+					<div id = "weatherContainer">
+						<SelectCities currentCity = {this.state.city} onSelectCity={this.onSelectCity}/>
+						<div id = "mainWeather">
+							<Card style = {{width : '23rem' }}>
+							<Card.Header>
+								<h1 style = {{fontSize:55}}> {this.state.temp} </h1>
+								<Card.Text>
+									{this.state.description}
+								</Card.Text>
+							</Card.Header>
+							<Card.Body>
+								<Card.Title><div> 
+									<img src = {this.state.iconURL} alt = 'icon'/>
+								</div>{this.state.city + ' , '+this.state.country}</Card.Title>
+								<Card.Text>
+								{this.state.todayDate + ' | '+this.state.currTime}
+								</Card.Text>
+							</Card.Body>
+							</Card>
+							
+						</div>
+							<FiveDaysWeather apiKey = {this.state.apiKey} currentSelectedCityKey = {this.state.currentSelectedCityKey}/>
+					</div>
 				);
 		}
 }

@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import { Link }from 'react-router-dom';
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -72,6 +72,10 @@ class Login extends Component {
 							    <Form.Label>Password</Form.Label>
 							    <Form.Control type="password" placeholder="Password"  onChange = {event => this.onPasswordChange(event)}/>
 							  </Form.Group>
+							  <Form.Group controlId="formLink">
+							  	<Link to = "/Register">Not a member? register here!</Link>
+							  </Form.Group>
+							 
 							  <Button variant="primary" type="submit" onClick = {this.onSubmitClick}>
 							    Submit
 							  </Button>
