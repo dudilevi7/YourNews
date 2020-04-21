@@ -47,7 +47,8 @@ class SelectCities extends Component {
     }
     render() {
         if (!this.props.currentCity) return <h1>loading...</h1>
-        return (
+        if (this.props.isSignedIn === true)
+        return ( 
             <div id = "selectCityInput">
                <AsyncSelect
                 cacheOptions 
@@ -58,6 +59,8 @@ class SelectCities extends Component {
                 placeholder="Enter a city" /> 
                </div>
         );
+        else 
+        return <div id = "selectCityInput">For multiple weather location options - login <a href = "/Login">here</a></div>
     }
 }
 

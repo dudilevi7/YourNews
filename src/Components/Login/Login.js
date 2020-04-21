@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link }from 'react-router-dom';
+import './Login.css';
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -55,14 +56,17 @@ class Login extends Component {
 		});
 		
 	}
-
+		onGuestBtnClick = ()=> {
+				this.props.onLoginComplete("guest");
+				this.props.history.push('/MyNews');
+		}
 
 		render() {
 			
 			return(
-				<div className="row align-items-center justify-content-center">
-						<Form style = {{padding: '10px' ,border : '1px solid #ccc', margin : '10px'}}>
-						<h1>Login</h1>
+				<div id = "loginContainer">
+						<Form id="loginForm">
+							<h1 id = "loginTitle">Login</h1>
 							  <Form.Group controlId="formBasicEmail">
 							    <Form.Label>Username</Form.Label>
 							    <Form.Control type="name" placeholder="Enter name" onChange = {event => this.onUsernameChange(event)} />
@@ -75,10 +79,12 @@ class Login extends Component {
 							  <Form.Group controlId="formLink">
 							  	<Link to = "/Register">Not a member? register here!</Link>
 							  </Form.Group>
-							 
-							  <Button variant="primary" type="submit" onClick = {this.onSubmitClick}>
-							    Submit
-							  </Button>
+							 	<Button id = "guestBtn" variant="dark" onClick = {this.onGuestBtnClick}>
+									Enter as Guest
+								</Button>
+								<Button id = "signInBtn" variant="primary" type="submit" onClick = {this.onSubmitClick}>
+									Sign In
+								</Button>
 						</Form>
 					</div>
 				)

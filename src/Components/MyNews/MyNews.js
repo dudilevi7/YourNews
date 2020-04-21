@@ -47,6 +47,11 @@ class MyNews extends Component {
 			}
 		});
 	}
+	onLoginBtnClick = (event) =>{
+		if (event === 'login')
+		this.props.history.push("/Login")
+		else this.props.history.push("/Register")
+	}
 	render() {
 		if (!this.props.user.isSignedIn) {
 			this.props.history.push('/');
@@ -62,7 +67,7 @@ class MyNews extends Component {
 			const newsArray = topNews.map((user,i) => {
 				let newsImage = nonImage;
 				if (topNews[i].urlToImage) newsImage = topNews[i].urlToImage;
-				return (
+				return ( 
 					  <Carousel.Item onClick ={()=>window.open(news[i].url, '_blank').focus()} key = {i}>
 					    <img
 					      id = "mainImg"
@@ -86,33 +91,55 @@ class MyNews extends Component {
 						    <strong className="mr-auto">YourNews</strong>
 						    <small>now</small>
 				  		</Toast.Header>
-			  		<Toast.Body>Hello, {this.props.user.username} ! your'e logged in.</Toast.Body>
+						  {this.props.user.isSignedIn === true ? <Toast.Body>Hello, {this.props.user.username} ! your'e logged in.</Toast.Body>
+						  : <Toast.Body>Hello, {this.props.user.username} ! your'e in limited version.
+						 <br></br><a href = "Login"> Login now</a></Toast.Body>}
+				
 				</Toast>
 					<Carousel id = "mainArticles" >
 						  {newsArray}
 					</Carousel>
 
 				<div id = "navContainer"style = {{margin :'20px'}}>
+					{this.props.user.isSignedIn === true ?
 					<Nav variant="pills" defaultActiveKey= {this.props.user.category}
 						onSelect={this.onSelectCategory}>
 						  <Nav.Item>
 						    <Nav.Link eventKey="general">General</Nav.Link>
 						  </Nav.Item>
-						  <Nav.Item>
-						    <Nav.Link eventKey="sports">Sports</Nav.Link>
-						  </Nav.Item>
-						   <Nav.Item>
-						    <Nav.Link eventKey="technology">Technology</Nav.Link>
-						  </Nav.Item>
-						  <Nav.Item>
-						    <Nav.Link eventKey="entertainment">Entertainment</Nav.Link>
-						  </Nav.Item>
-						    <Nav.Item>
-						    <Nav.Link eventKey="business">Business</Nav.Link>
-						  </Nav.Item>
-					</Nav>
+							<Nav.Item>
+								<Nav.Link eventKey="sports" >Sports</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link eventKey="technology">Technology</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link eventKey="entertainment">Entertainment</Nav.Link>
+							</Nav.Item>
+								<Nav.Item>
+								<Nav.Link eventKey="business">Business</Nav.Link>
+							</Nav.Item> 	
+					</Nav> : (
+						<Nav variant="pills" defaultActiveKey= {this.props.user.category}
+						onSelect={this.onSelectCategory}>
+						<Nav.Item>
+							<Nav.Link eventKey="general">General</Nav.Link>
+						</Nav.Item>
+							<Nav.Item>
+								<Nav.Link eventKey="sports" disabled >Sports</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link eventKey="technology" disabled>Technology</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link eventKey="entertainment" disabled>Entertainment</Nav.Link>
+							</Nav.Item>
+								<Nav.Item>
+								<Nav.Link eventKey="business" disabled>Business</Nav.Link>
+							</Nav.Item> 	
+					</Nav>)}
 				</div>
-				<OtherNews news = {this.state.data.articles}/>
+				<OtherNews news = {this.state.data.articles} isSignedIn = {this.props.user.isSignedIn} onLoginBtnClick={this.onLoginBtnClick}/>
 			</div>
 		);
 	

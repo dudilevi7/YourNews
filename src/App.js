@@ -48,13 +48,13 @@ class App extends Component {
     this.props.onConnection(false,"","");
   }
   onRegisterComplete = (data)=> {
-    // this.setState(Object.assign(this.state.user, {username : data.username}))
-    //this.setState(Object.assign(this.state.user, {category : data.category}))
     this.props.onConnection(true,data.username,data.category);
   }
   onLoginComplete = (data)=> {
-      // this.setState(Object.assign(this.state.user, {username : data.username}))
-     // this.setState(Object.assign(this.state.user, {category : data.category}))
+    console.log(data)
+      if (data === "guest"){
+        this.props.onConnection("guest","guest","general");
+      }else
       this.props.onConnection(true,data.username,data.category);
   }
     render(){

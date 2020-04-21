@@ -1,0 +1,27 @@
+
+#signInBtn{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+#guestBtn{
+    align-self: center;
+    width: 100%;
+    text-align: center;
+}
+#loginContainer{
+    display: flex;
+    justify-content: center;
+}
+
+#loginForm {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    margin : 10px;
+    border : 1px solid #ccc;
+    border-radius: 3px;
+}

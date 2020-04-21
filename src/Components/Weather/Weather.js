@@ -93,7 +93,7 @@ class Weather extends Component {
 		if (!this.state.currTime || !this.state.currentSelectedCityKey) return <Spinner animation="border" />;
 			return (
 					<div id = "weatherContainer">
-						<SelectCities currentCity = {this.state.city} onSelectCity={this.onSelectCity}/>
+						<SelectCities currentCity = {this.state.city} onSelectCity={this.onSelectCity} isSignedIn = {this.props.user.isSignedIn}/>
 						<div id = "mainWeather">
 							<Card style = {{width : '23rem' }}>
 							<Card.Header>

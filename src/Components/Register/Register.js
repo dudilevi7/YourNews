@@ -99,7 +99,7 @@ class Register extends Component {
 	render(){
 		return(
 				<div className="row align-items-center justify-content-center">
-						<Form style = {{padding: '30px' ,border : '1px solid #ccc', margin : '10px'}}>
+						<Form style = {{padding: '30px' ,borderRadius : '3px',border : '1px solid #ccc', margin : '10px'}}>
 						<h1>Register</h1>
 							  <Form.Group controlId="formName">
 							    <Form.Label>Username</Form.Label>
@@ -144,7 +144,7 @@ class Register extends Component {
 							    	checkBox : !this.state.checkBox
 							    })} />
 							  </Form.Group>
-							  <Button variant="primary" type="submit" onClick = {this.onSubmitClick} >
+							  <Button style = {{width : '100%'}}variant="primary" type="submit" onClick = {this.onSubmitClick} >
 							    Sign Up
 							  </Button>
 						</Form>

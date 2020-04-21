@@ -5,10 +5,10 @@ import Modal from 'react-bootstrap/Modal'
 import nonImage from './nonImage.png'
 import './OtherNews.css';
 
-function OtherNews ({news}) {
+function OtherNews ({news,isSignedIn,onLoginBtnClick}) {
 	const [show,setShow] = useState(false);
 	const [index,setIndex] = useState(0);
-
+	const [btext,setBtext] = useState("");
 	const handleClose = () => setShow(false);
 	const handleShow = (i) => {
 		setIndex(i);
@@ -24,25 +24,36 @@ function OtherNews ({news}) {
 	const newsArray = otherNews.map((user,i) => {
 			if (otherNews[i].urlToImage) newsImage = otherNews[i].urlToImage;
 			return (
-				<Card id = "cardContainer" key= {i} >
+				<Card id = "cardContainer" key= {i}  >
 					  <Card.Img id = 'cardImg' variant="top" src={newsImage} />
 					  <Card.Body>
 					    <Card.Title id ="cardTitle">{otherNews[i].title}</Card.Title>
+						{isSignedIn === true ?
 							<div id = "buttons">
 								<Button variant="primary" style = {{cursor:'pointer'}} onClick ={()=> handleShow(i)}>Summary</Button>
 								<Button variant="outline-success" style = {{margin:'10px'}}
 								onClick ={()=>window.open('https://api.whatsapp.com/send?text='+otherNews[i].url, '_blank').focus()}>
 								Share via Whatsapp</Button>
 							</div>
+							:<div id = "buttons">
+							<Button variant="primary" style = {{cursor:'pointer'}} 
+							onClick ={()=>{setBtext("Full articles are available for registered friends only")
+								handleShow(i)}}>Summary</Button>
+							<Button variant="outline-success" style = {{margin:'10px'}}
+							onClick ={()=>{setBtext("You can't share in guest mode")
+							handleShow(i)}}>
+							Share via Whatsapp</Button>
+						</div> }
 					  </Card.Body>
 					</Card>
 				);
 	});
 
 	if (otherNews[index].urlToImage) newsImage = otherNews[index].urlToImage;
-	else newsImage = nonImage
+	else newsImage = nonImage;
 	return (
 		<div id = "cardsModalContainer" >
+			{isSignedIn === true ? // modal for user
 			<Modal id = "modal" show={show} onHide={handleClose} size = "lg" animation = 'true'>
 				<Modal.Header closeButton>
 				<Modal.Title style = {{textAlign:'center'}}>{otherNews[index].title}</Modal.Title>
@@ -67,6 +78,23 @@ function OtherNews ({news}) {
 					   	  Share via Whatsapp</Button>
 				</Modal.Footer>
 			</Modal>
+			: // modal for guest
+			<Modal show={show} onHide={handleClose}>
+					<Modal.Header closeButton>
+						<Modal.Title>YourNews</Modal.Title>
+					</Modal.Header>
+
+					<Modal.Body>
+						<p>{btext}</p>
+					</Modal.Body>
+
+					<Modal.Footer>
+						<Button variant="secondary"onClick = {handleClose}>Close</Button>
+						<Button variant="primary" onClick = {()=>onLoginBtnClick("login")}>Login</Button>
+						<Button variant = "dark" onClick = {()=> onLoginBtnClick("register")}>Register</Button>
+					</Modal.Footer>
+					</Modal>}
+
 			<div id = "cardsContainer">
 				{newsArray}
 			</div>
