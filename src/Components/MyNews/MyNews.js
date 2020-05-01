@@ -76,8 +76,8 @@ class MyNews extends Component {
 					    />
 
 					    <Carousel.Caption>
-					      	<h3 style = {{background: ' black',fontSize: 20}}>{topNews[i].title}</h3>
-					      	<p style = {{background: ' black' ,fontSize : 15}}>{topNews[i].description}</p>
+					      	<h3 id = "mainTitles">{topNews[i].title}</h3>
+					      	<p id = "mainDesc">{topNews[i].description}</p>
 					    </Carousel.Caption>
 					  </Carousel.Item>
 					);
@@ -100,9 +100,9 @@ class MyNews extends Component {
 						  {newsArray}
 					</Carousel>
 
-				<div id = "navContainer"style = {{margin :'20px'}}>
+				<div id = "navContainer" style = {{margin :'20px'}}>
 					{this.props.user.isSignedIn === true ?
-					<Nav variant="pills" defaultActiveKey= {this.props.user.category}
+					<Nav id = "navGroup" variant="pills" defaultActiveKey= {this.props.user.category}
 						onSelect={this.onSelectCategory}>
 						  <Nav.Item>
 						    <Nav.Link eventKey="general">General</Nav.Link>
@@ -120,7 +120,7 @@ class MyNews extends Component {
 								<Nav.Link eventKey="business">Business</Nav.Link>
 							</Nav.Item> 	
 					</Nav> : (
-						<Nav variant="pills" defaultActiveKey= {this.props.user.category}
+						<Nav id = "navGroup" variant="pills" defaultActiveKey= {this.props.user.category}
 						onSelect={this.onSelectCategory}>
 						<Nav.Item>
 							<Nav.Link eventKey="general">General</Nav.Link>

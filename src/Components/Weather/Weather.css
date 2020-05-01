@@ -11,4 +11,24 @@
 #mainWeather{
     align-self: center;
     justify-content: center;
+    width: 23rem;
+}
+@media only screen and (max-width: 650px) {
+
+    #weatherContainer {
+        display: flex;
+        flex-direction: column;
+        border-radius: 7px;
+        border-style: solid;
+        padding: 10px;
+        border-color: #f1f1f1;
+        border-width: 1.5px;
+        margin: 10px 20px 0px 20px;
+    }
+    #mainWeather{
+        align-self: center;
+        justify-content: center;
+        width: 100%;
+    }
+
 }

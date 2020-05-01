@@ -18,6 +18,14 @@
     margin-top : 20px;
     cursor: pointer;
 }
+#mainTitles{
+    font-size: 20px;
+    background-color: black;
+}
+#mainDesc{
+    font-size: 15px;
+    background-color: black;
+}
 #mainImg {
     height: 300px;
     width: 600px;
@@ -27,4 +35,41 @@
     border-radius: 3px;
     align-self: center;
     margin-bottom: 20px;
+}
+@media only screen and (max-width: 650px) {
+    
+    #mainArticles{
+        justify-content: center;
+        align-self: center;
+        height: 300px;
+        max-width: 350px;
+        margin-top : 20px;
+        cursor: pointer;
+    }
+    #toastDisplay {
+        display: none;
+    }
+    #mainTitles{
+        font-size: 18px;
+        background-color: black;
+    }
+    #mainDesc{
+        font-size: 12px;
+        background-color: black;
+    }
+    #navContainer {
+        background-color: whitesmoke;
+        display: grid;
+        align-self: none;
+        grid-template-rows : auto auto auto;
+        border-radius: 3px;
+        margin-bottom: 20px;
+    }
+    #navGroup {
+        display: grid;
+        flex-direction: row;
+        grid-template-rows : auto auto auto;
+        flex-wrap: wrap;
+    }
+
 }

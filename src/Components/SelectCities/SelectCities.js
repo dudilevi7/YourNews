@@ -50,7 +50,7 @@ class SelectCities extends Component {
         if (this.props.isSignedIn === true)
         return ( 
             <div id = "selectCityInput">
-               <AsyncSelect
+               <AsyncSelect id="selectBox"
                 cacheOptions 
                 defaultOptions
                 defaultInputValue = {this.props.currentCity}

@@ -95,7 +95,7 @@ class Weather extends Component {
 					<div id = "weatherContainer">
 						<SelectCities currentCity = {this.state.city} onSelectCity={this.onSelectCity} isSignedIn = {this.props.user.isSignedIn}/>
 						<div id = "mainWeather">
-							<Card style = {{width : '23rem' }}>
+							<Card>
 							<Card.Header>
 								<h1 style = {{fontSize:55}}> {this.state.temp} </h1>
 								<Card.Text>
