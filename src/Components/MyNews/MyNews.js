@@ -13,8 +13,8 @@ class MyNews extends Component {
 		super(props);
 		this.state = {
 			category: '',
-			apiKey: '3580620b7e0341c0aac4bc7d8754db54',
-			url : 'https://newsapi.org/v2/top-headlines?country=il&apiKey=3580620b7e0341c0aac4bc7d8754db54&category=',
+			apiKey: 'abc72145994a45f19cd1781fe040f011',
+			url : 'https://newsapi.org/v2/top-headlines?country=il&apiKey=abc72145994a45f19cd1781fe040f011&category=',
 			data : {},
 			toastDisplay : true
 		}
@@ -24,11 +24,16 @@ class MyNews extends Component {
 		let category = this.props.user.category;
 		var url = this.state.url + category;
 		var req = new Request(url);
-		fetch(req).then(response => response.json())
+		fetch(req)
+		.then(response => response.json())
 		.then(newData=>{
+			
 			if (this._isMounted){
 				this.setState({data : newData})
 			}
+		}).catch((error)=>{
+			alert("Server is too busy now " );
+			this.props.history.push('/Corona')
 		});	
 	}
 	componentWillUnmount() {

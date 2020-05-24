@@ -1,0 +1,25 @@
+#stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+#mainCovid {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+#countryTitle {
+    
+    margin-top: 5px;
+}
+@media only screen and (max-width: 650px) {
+    #stats{
+        display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+   
+    }
+}

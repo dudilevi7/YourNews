@@ -7,6 +7,7 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import MyNews from './Components/MyNews/MyNews';
 import Weather from './Components/Weather/Weather'
+import Corona from './Components/Corona/Corona'
 import Home from './Components/Home/Home';
 
 import { connect } from 'react-redux';
@@ -76,6 +77,8 @@ class App extends Component {
               user = {this.props} {...props}/>}/>
               
               <Route exact path = '/Weather' render = {(props)=>  <Weather user = {this.props}{...props}/>}/>
+
+              <Route exact path = '/Corona' render = {(props)=>  <Corona user = {this.props}{...props}/>}/>
             </Switch>
           </div>
       </BrowserRouter>

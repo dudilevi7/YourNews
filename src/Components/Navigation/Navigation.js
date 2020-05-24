@@ -19,7 +19,8 @@ const Navigation = ({user}) =>{
 						HOME
 			            </Link>
 			         </Nav.Item> 
-	let weatherLink = ""
+	let weatherLink = "";
+	let covidLink = "";
 	if (user.isSignedIn) {
 		loginLink = 
 			<Nav.Item style = {{margin : 10}}>
@@ -41,6 +42,12 @@ const Navigation = ({user}) =>{
 						Weather
 			            </Link>
 		</Nav.Item>
+		covidLink = 
+				<Nav.Item style = {{margin : 10}}>
+				<Link to = '/Corona' style = {{fontSize : '1.2em',textDecoration:'none' ,color:'red'}}>
+					COVID-19
+				</Link>
+		</Nav.Item>
 	}
 	return(
 				 <Nav
@@ -54,6 +61,7 @@ const Navigation = ({user}) =>{
 			              	{registerLink}
 			              	{MyNewsLink}
 			               	{weatherLink}
+							{covidLink}
   			</Nav>
 
 
