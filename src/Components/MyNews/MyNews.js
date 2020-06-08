@@ -12,7 +12,7 @@ class MyNews extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			category: '',
+			category: 'general',
 			apiKey: 'abc72145994a45f19cd1781fe040f011',
 			url : 'https://newsapi.org/v2/top-headlines?country=il&apiKey=abc72145994a45f19cd1781fe040f011&category=',
 			data : {},
@@ -29,11 +29,11 @@ class MyNews extends Component {
 		.then(newData=>{
 			
 			if (this._isMounted){
-				this.setState({data : newData})
+				//this.setState({data : newData})
 			}
 		}).catch((error)=>{
-			alert("Server is too busy now " );
-			this.props.history.push('/Corona')
+			alert("Demo verison *problem with server" );
+			
 		});	
 	}
 	componentWillUnmount() {
@@ -51,6 +51,7 @@ class MyNews extends Component {
 				this.setState({data : newData})
 			}
 		});
+		this.setState({category : selectedCategory})
 	}
 	onLoginBtnClick = (event) =>{
 		if (event === 'login')
@@ -61,8 +62,81 @@ class MyNews extends Component {
 		if (!this.props.user.isSignedIn) {
 			this.props.history.push('/');
 			}
-		if (!this.state.data.articles) return <Spinner animation="border" />;
+		if (!this.state.data.articles) //When newsApi not working!!!
+			return (
+				<div id = 'myNewsContainer'>
+						<Toast id="toastDisplay" show = {this.state.toastDisplay} onClose = {this.onCloseToast}>
+								<Toast.Header>
+									<img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+									<strong className="mr-auto">YourNews</strong>
+									<small>now</small>
+								</Toast.Header>
+								{this.props.user.isSignedIn === true ? <Toast.Body>Hello, {this.props.user.username} ! your'e logged in.</Toast.Body>
+								: <Toast.Body>Hello, {this.props.user.username} ! your'e in limited version.
+								</Toast.Body>}
+						
+						</Toast>
+						<Carousel id = "mainArticles" >
+							<Carousel.Item>
+								<img id = "mainImg" src={nonImage} alt="slide"/>
+								<Carousel.Caption>
+									<h3 id = "mainTitles">This is demo display</h3>
+									<p id = "mainDesc">Error in NewsAPI Source , working only in localhost</p>
+								</Carousel.Caption>
+							</Carousel.Item>
+							<Carousel.Item>
+								<img id = "mainImg" src={nonImage} alt="slide"/>
+								<Carousel.Caption onClick = {()=>this.props.history.push('/Weather')}>
+									<h3 id = "mainTitles">Hey {this.props.user.username} ! check the weather today</h3>
+									<p id = "mainDesc">You can search any city from every point of the earth . click on me!</p>
+								</Carousel.Caption>
+							</Carousel.Item>
+					</Carousel>
 
+						<div id = "navContainer" style = {{margin :'20px'}}>
+							{this.props.user.isSignedIn === true ?
+							<Nav id = "navGroup" variant="pills" defaultActiveKey= {this.props.user.category} onSelect={this.onSelectCategory}	>
+								<Nav.Item>
+									<Nav.Link eventKey="general">General</Nav.Link>
+								</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="sports" >Sports</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="technology">Technology</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="entertainment">Entertainment</Nav.Link>
+									</Nav.Item>
+										<Nav.Item>
+										<Nav.Link eventKey="business">Business</Nav.Link>
+									</Nav.Item> 	
+							</Nav> : (
+								<Nav id = "navGroup" variant="pills" defaultActiveKey= {this.props.user.category}
+								onSelect={this.onSelectCategory}>
+								<Nav.Item>
+									<Nav.Link eventKey="general">General</Nav.Link>
+								</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="sports" disabled >Sports</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="technology" disabled>Technology</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="entertainment" disabled>Entertainment</Nav.Link>
+									</Nav.Item>
+										<Nav.Item>
+										<Nav.Link eventKey="business" disabled>Business</Nav.Link>
+									</Nav.Item> 	
+							</Nav>)}
+						</div>
+						<OtherNews category = {this.state.category} news = {this.state.data.articles} isSignedIn = {this.props.user.isSignedIn} onLoginBtnClick={this.onLoginBtnClick}/>
+					</div>
+				 );
+			// when newsApi working (from localhost...)	/////	
+			////////////////////////////////////////////////
+			///////////////////////////////////////////////			
 			var news = this.state.data.articles;
 			let newsImage = nonImage;
 			var topNews = [];
@@ -87,7 +161,7 @@ class MyNews extends Component {
 					  </Carousel.Item>
 					);
 			});
-		//console.log(newsArray)
+		//else newsApi is working ...
 		return (
 			<div id = 'myNewsContainer'>
 				<Toast id="toastDisplay" show = {this.state.toastDisplay} onClose = {this.onCloseToast}>
