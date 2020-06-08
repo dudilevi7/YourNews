@@ -29,10 +29,10 @@ class MyNews extends Component {
 		.then(newData=>{
 			
 			if (this._isMounted){
-				//this.setState({data : newData})
+				this.setState({data : newData})
 			}
 		}).catch((error)=>{
-			alert("Demo verison *problem with server" );
+			alert("Demo verison *source api error" );
 			
 		});	
 	}
