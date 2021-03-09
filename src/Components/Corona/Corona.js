@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import Card from 'react-bootstrap/Card';
-import Spinner from 'react-bootstrap/Spinner'
+import Spinner from 'react-bootstrap/Spinner';
+import covidData from '../../constants/json/covid.json'
 import './Corona.css';
 
 class Corona extends Component {
@@ -42,11 +43,21 @@ class Corona extends Component {
                     global : data.Global
                 })
             }).catch(error=>{
-                console.log(error)
+                let data = covidData;
+                 this.setState({
+                    country : "Israel",
+                    totalCases : data.Israel.TotalConfirmed ,
+                    newCases : data.Israel.NewConfirmed,
+                    totalDeaths : data.Israel.TotalDeaths,
+                    newDeaths : data.Israel.NewDeaths,
+                    newRecorverd : data.Israel.NewRecovered,
+                    totalRecovered : data.Israel.TotalRecovered,
+                    global : data.Global
+                })
             });
     }
     render() {
-        if(!this.state.country) return <Spinner animation = "border"></Spinner>
+        if(!this.state.country) return <Spinner animation = "border"/>
         return (
             <div id = "mainCovid">
                 <h1 id = "countryTitle">{this.state.country}</h1>

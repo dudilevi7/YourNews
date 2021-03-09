@@ -24,7 +24,7 @@ class SelectCities extends Component {
                 citiesArr = cities.filter(cityElem => cityElem.Type ==='City')
                 .map(city =>({value :  city.LocalizedName , label :  city.LocalizedName+" , "+city.Country.LocalizedName ,key : city.Key ,country : city.Country.LocalizedName }));
             } catch (error) {
-                console.log("server requests is limited")
+                alert("server requests is limited")
             }
             
 

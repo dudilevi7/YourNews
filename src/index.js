@@ -1,20 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createLogger } from 'redux-logger';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import {isSignedInReducer  } from './reducers';
-import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store.js';
 
 
-//const logger = createLogger();
-//const store = createStore(isSignedInReducer,applyMiddleware(logger));
-//const store = createStore(isSignedInReducer);
+
 ReactDOM.render(
     <Provider store = {store}>
         <PersistGate persistor = {persistor}>

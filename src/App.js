@@ -43,7 +43,7 @@ class App extends Component {
 
   
   onLogOutClick = ()=>{
-   // this.props.onConnection(false);
+   
   }
   onLoginStart = ()=> {
     this.props.onConnection(false,"","");
@@ -52,7 +52,6 @@ class App extends Component {
     this.props.onConnection(true,data.username,data.category);
   }
   onLoginComplete = (data)=> {
-    console.log(data)
       if (data === "guest"){
         this.props.onConnection("guest","guest","general");
       }else
