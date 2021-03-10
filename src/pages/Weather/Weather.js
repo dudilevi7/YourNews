@@ -87,13 +87,13 @@ class Weather extends Component {
 		
 	}
     render() {
-    	if (!this.props.user.isSignedIn) {
-			this.props.history.push('/Login');
+    	if (!this.props.isSignedIn) {
+			this.props.route.history.push('/Login');
 			}
 		if (!this.state.currTime || !this.state.currentSelectedCityKey) return <Spinner animation="border" />;
 			return (
 					<div id = "weatherContainer">
-						<SelectCities currentCity = {this.state.city} onSelectCity={this.onSelectCity} isSignedIn = {this.props.user.isSignedIn}/>
+						<SelectCities currentCity = {this.state.city} onSelectCity={this.onSelectCity} isSignedIn = {this.props.isSignedIn}/>
 						<div id = "mainWeather">
 							<Card>
 							<Card.Header>

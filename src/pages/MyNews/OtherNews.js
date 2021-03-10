@@ -6,6 +6,7 @@ import nonImage from './nonImage.png'
 import './OtherNews.css';
 
 function OtherNews ({news,isSignedIn,onLoginBtnClick,category}) {
+	
 	const [show,setShow] = useState(false);
 	const [index,setIndex] = useState(0);
 	const [btext,setBtext] = useState("");

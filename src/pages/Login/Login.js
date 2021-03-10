@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link }from 'react-router-dom';
 import './Login.css';
+
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -12,7 +13,7 @@ class Login extends Component {
 		}
 	}
 	componentDidMount() {
-		this.props.onLoginStart();
+		this.props.onConnection(false,"","");
 	}
 	onUsernameChange = (event )=> {
 		let input = event.target.value;
@@ -34,35 +35,23 @@ class Login extends Component {
 		})
 		.then(response => response.json())
 		.then(data => {
-			if (data.id){ //if data is user
-				// var url = new URL("http://localhost:3000/saveuser"),
-				// params = {username : data.username}
-				// url.search = new URLSearchParams(params).toString();
-				// fetch(url, {
-				// 	  method: "get",
-				// 	  headers: {
-				// 	    'Accept': 'application/json',
-				// 	    'Content-Type': 'application/json',
-				// 	    'Cache': 'no-cache'
-				// 	  },
-				// 	  withCredentials: true
-				// 	})
-				// .then(response => console.log(response))			
-				this.props.onLoginComplete(data);
-				this.props.history.push('/MyNews');
-			}else { //data is error
+			if (data.id){ 	
+				this.props.onConnection(true,data.username,data.category);
+				this.props.route.history.push('/MyNews');
+			}else { 
 				alert(data);
 			}
+		}).catch(err=>{
+			alert(err);
 		});
 		
 	}
-		onGuestBtnClick = ()=> {
-				this.props.onLoginComplete("guest");
-				this.props.history.push('/MyNews');
+		onGuestBtnClick = () => {
+				this.props.onConnection("guest","guest","general");
+				this.props.route.history.push('/MyNews');
 		}
 
 		render() {
-			
 			return(
 				<div id = "loginContainer">
 						<Form id="loginForm">

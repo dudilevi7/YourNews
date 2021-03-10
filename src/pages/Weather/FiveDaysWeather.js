@@ -18,7 +18,7 @@ class FiveDaysWeather extends Component {
     componentDidMount(){
         this.fetchFiveDaysArray();
     }
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
 		if (this.props.currentSelectedCityKey !== prevProps.currentSelectedCityKey) {
 		  this.fetchFiveDaysArray();
 		}
@@ -42,9 +42,7 @@ class FiveDaysWeather extends Component {
                 }else {
                    icons.push(getIconURL(dailyForeArr[i].Day.Icon))
                 } 
-                   // this.setState({days : this.state.days.push())});
-                   daysArr.push(getSpecificDay(dailyForeArr[i].Date));
-                    //this.setState({shortDates : this.state.shortDates.push(getShortDate(dailyForeArr[i].Date))});
+                    daysArr.push(getSpecificDay(dailyForeArr[i].Date));
                     shortDatesArr.push(getShortDate(dailyForeArr[i].Date));
                     let minTemp = dailyForeArr[i].Temperature.Minimum.Value;
                     let maxTemp = dailyForeArr[i].Temperature.Maximum.Value;

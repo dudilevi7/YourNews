@@ -81,8 +81,8 @@ class Register extends Component {
 					else alert (data.detail);
 				}
 				else { //data is an user
-				this.props.onRegisterComplete(data);
-				this.props.history.push('/MyNews')
+					this.props.onConnection(true,data.username,data.category);
+					this.props.route.history.push('/MyNews')
 				}
 			});
 			

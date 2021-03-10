@@ -21,9 +21,10 @@ class MyNews extends Component {
 	}
 	componentDidMount() {
 		this._isMounted = true;
-		const category = this.props.user.category;
+		const category = this.props.category;
 		this.onSelectCategory(category);
 	}
+	
 	componentWillUnmount() {
    		 this._isMounted = false;
   	}
@@ -46,13 +47,13 @@ class MyNews extends Component {
 	}
 	onLoginBtnClick = (event) => {
 		if (event === 'login')
-			 this.props.history.push("/Login")
-		else this.props.history.push("/Register")
+			 this.props.route.history.push("/Login")
+		else this.props.route.history.push("/Register")
 	}
 
 	render() {
-		if (!this.props.user.isSignedIn) {
-			this.props.history.push('/');
+		if (!this.props.isSignedIn) {
+			this.props.route.history.push('/');
 			}
 		if (!this.state.data.articles) return <Spinner animation="border" />;
 		
@@ -89,8 +90,8 @@ class MyNews extends Component {
 						    <strong className="mr-auto">YourNews</strong>
 						    <small>now</small>
 				  		</Toast.Header>
-						  {this.props.user.isSignedIn === true ? <Toast.Body>Hello, {this.props.user.username} ! your'e logged in.</Toast.Body>
-						  : <Toast.Body>Hello, {this.props.user.username} ! your'e in limited version.
+						  {this.props.isSignedIn === true ? <Toast.Body>Hello, {this.props.username} ! your'e logged in.</Toast.Body>
+						  : <Toast.Body>Hello, {this.props.username} ! your'e in limited version.
 						 <br></br><a href = "Login"> Login now</a></Toast.Body>}
 				
 				</Toast>
@@ -99,8 +100,8 @@ class MyNews extends Component {
 					</Carousel>
 
 				<div id = "navContainer" style = {{margin :'20px'}}>
-					{this.props.user.isSignedIn === true ?
-					<Nav id = "navGroup" variant="pills" defaultActiveKey= {this.props.user.category}
+					{this.props.isSignedIn === true ?
+					<Nav id = "navGroup" variant="pills" defaultActiveKey= {this.props.category}
 						onSelect={this.onSelectCategory}>
 						  <Nav.Item>
 						    <Nav.Link eventKey="general">General</Nav.Link>
@@ -118,7 +119,7 @@ class MyNews extends Component {
 								<Nav.Link eventKey="business">Business</Nav.Link>
 							</Nav.Item> 	
 					</Nav> : (
-						<Nav id = "navGroup" variant="pills" defaultActiveKey= {this.props.user.category}
+						<Nav id = "navGroup" variant="pills" defaultActiveKey= {this.props.category}
 						onSelect={this.onSelectCategory}>
 						<Nav.Item>
 							<Nav.Link eventKey="general">General</Nav.Link>
@@ -137,7 +138,7 @@ class MyNews extends Component {
 							</Nav.Item> 	
 					</Nav>)}
 				</div>
-				<OtherNews news = {this.state.data.articles} isSignedIn = {this.props.user.isSignedIn} onLoginBtnClick={this.onLoginBtnClick}/>
+				<OtherNews news = {this.state.data.articles} isSignedIn = {this.props.isSignedIn} onLoginBtnClick={this.onLoginBtnClick}/>
 			</div>
 		);
 	
