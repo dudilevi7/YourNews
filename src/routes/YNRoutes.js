@@ -1,9 +1,9 @@
 import React from 'react';
-import Login from '../Components/Login/Login';
-import Register from '../Components/Register/Register';
-import MyNews from '../Components/MyNews/MyNews';
-import Weather from '../Components/Weather/Weather'
-import Corona from '../Components/Corona/Corona'
+import Login from '../pages/Login/Login';
+import Register from '../pages/Register/Register';
+import MyNews from '../pages/MyNews/MyNews';
+import Weather from '../pages/Weather/Weather'
+import Corona from '../pages/Corona/Corona'
 import Home from '../pages/Home/Home';
 import { Route , Switch } from 'react-router-dom';
 

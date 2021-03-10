@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import './Weather.css';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import FiveDaysWeather from './FiveDaysWeather';
-import SelectCities from '../SelectCities/SelectCities';
+import SelectCities from '../../Components/SelectCities/SelectCities';
 var geolocation = require('geolocation');
 
 class Weather extends Component {
