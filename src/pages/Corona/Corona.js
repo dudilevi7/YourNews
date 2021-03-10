@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
-import covidData from '../../constants/json/covid.json'
+import covidData from '../../constants/json/covid'
 import './Corona.css';
 
 class Corona extends Component {

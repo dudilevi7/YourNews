@@ -1,8 +1,8 @@
-import bussData from '../constants/json/buss.json';
-import sportsData from '../constants/json/sport.json';
-import entData from '../constants/json/ent.json';
-import techData from '../constants/json/tech.json';
-import generalData from '../constants/json/general.json';
+import bussData from '../constants/json/buss';
+import sportsData from '../constants/json/sport';
+import entData from '../constants/json/ent';
+import techData from '../constants/json/tech';
+import generalData from '../constants/json/general';
 
 const dataService = (selectedCategory) => {
     switch(selectedCategory) {
