@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import AsyncSelect from 'react-select/async';
 import { getAutoCompleteURL } from '../../utils/ApiConvertor';
 import './SelectCities.css';
@@ -24,7 +25,7 @@ class SelectCities extends Component {
                 citiesArr = cities.filter(cityElem => cityElem.Type ==='City')
                 .map(city =>({value :  city.LocalizedName , label :  city.LocalizedName+" , "+city.Country.LocalizedName ,key : city.Key ,country : city.Country.LocalizedName }));
             } catch (error) {
-                alert("server requests is limited")
+                console.log("server requests is limited")
             }
             
 
@@ -60,7 +61,7 @@ class SelectCities extends Component {
                </div>
         );
         else 
-        return <div id = "selectCityInput">For multiple weather location options - login <a href = "/Login">here</a></div>
+        return <div id = "selectCityInput">For multiple weather location options - login&nbsp;<Link to= "/Login">here</Link></div>
     }
 }
 

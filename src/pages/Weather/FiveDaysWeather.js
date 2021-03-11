@@ -55,7 +55,9 @@ class FiveDaysWeather extends Component {
             this.setState({shortDates : shortDatesArr})
             this.setState({minTempsArray : minTempsArr})
             this.setState({maxTempsArray : maxTempsArr})
-        });
+        }).catch((error)=>{
+			alert("There's to much calls to the server")
+		});
     }
     render() {
         const daysWeatherArr = this.state.shortDates.map((user,i) => {

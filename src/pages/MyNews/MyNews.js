@@ -7,6 +7,7 @@ import OtherNews from './OtherNews';
 import nonImage from './nonImage.png'
 import './MyNews.css';
 import dataService from '../../services/dataService';
+import { Link } from 'react-router-dom';
 
 class MyNews extends Component {
 	_isMounted = false;
@@ -36,8 +37,11 @@ class MyNews extends Component {
 		const req = new Request(url);
 		fetch(req).then(response => response.json())
 		.then(newData=>{
-			if (this._isMounted){
+			if (this._isMounted && newData.status!=='error'){
 				this.setState({data : newData})
+			} else {
+				let jsonData = dataService(selectedCategory);
+				this.setState({data : jsonData})
 			}
 		}).catch((error)=>{
 			let jsonData = dataService(selectedCategory);
@@ -92,7 +96,7 @@ class MyNews extends Component {
 				  		</Toast.Header>
 						  {this.props.isSignedIn === true ? <Toast.Body>Hello, {this.props.username} ! your'e logged in.</Toast.Body>
 						  : <Toast.Body>Hello, {this.props.username} ! your'e in limited version.
-						 <br></br><a href = "Login"> Login now</a></Toast.Body>}
+						 <br></br><Link to = "/Login"> Login now</Link></Toast.Body>}
 				
 				</Toast>
 					<Carousel id = "mainArticles" >
