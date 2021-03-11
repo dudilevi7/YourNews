@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Navigation from './Components/Navigation/Navigation';
 import { connect } from 'react-redux';
 import { setIsSignedIn, setUserName, setCategory } from './redux/actions';
@@ -12,12 +12,12 @@ const history = createBrowserHistory();
 
 const App = props => {
       return (
-          <Router history={history} basename={process.env.PUBLIC_URL} >
+          <BrowserRouter history={history} basename='/yournews'>
               <div className="App">
                     <Navigation isSignedIn={props.isSignedIn}/> 
                     <YNRoutes {...props} />
               </div>
-          </Router>
+          </BrowserRouter>
         )
 }
 
